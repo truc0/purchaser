@@ -1,3 +1,15 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from .models import User, Student
 
-# Register your models here.
+
+class StudentInline(admin.StackedInline):
+    model = Student
+    can_delete = False
+
+
+class UserAdmin(BaseUserAdmin):
+    inlines = (StudentInline,)
+
+
+admin.site.register(User, UserAdmin)
